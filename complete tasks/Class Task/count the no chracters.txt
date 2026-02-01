@@ -1,0 +1,4 @@
+SELECT 
+    str_column, 
+    LENGTH(str_column) - LENGTH(REPLACE(str_column, 'a', '')) AS count_a
+FROM your_table;

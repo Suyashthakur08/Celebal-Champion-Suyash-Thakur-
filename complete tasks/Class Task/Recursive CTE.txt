@@ -1,0 +1,29 @@
+--1 to 10
+WITH RECURSIVE numbers AS (
+    SELECT 1 AS n      
+    UNION ALL
+    SELECT n + 1 FROM numbers
+    WHERE n < 10
+)
+SELECT * FROM numbers;
+
+
+--Table of 2
+WITH RECURSIVE table_of_2 AS (
+    SELECT 2 AS n
+    UNION ALL
+    SELECT n + 2 FROM table_of_2
+    WHERE n < 20
+)
+SELECT * FROM table_of_2;
+
+--Fibonacci Series
+WITH RECURSIVE fib AS (
+    SELECT 0 AS current_val, 1 AS next_val, 1 AS iteration
+    UNION ALL
+    SELECT next_val, current_val + next_val, iteration + 1
+    FROM fib
+    WHERE iteration < 10
+)
+SELECT current_val FROM fib;
+

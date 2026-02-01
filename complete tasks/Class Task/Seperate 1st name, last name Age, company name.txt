@@ -1,0 +1,10 @@
+SELECT 
+    LEFT(email, CHARINDEX('.', email) - 1) AS Name,
+    
+    SUBSTRING(email, 
+              CHARINDEX('.', email) + 1, 
+              CHARINDEX('@', email) - CHARINDEX('.', email) - 1) AS Age,
+              
+    SUBSTRING(email, 
+              CHARINDEX('@', email) + 1, 
+              CHARINDEX('.', email, CHARINDEX('@', email)) - CHARINDEX('@', email) - 1) AS Company;

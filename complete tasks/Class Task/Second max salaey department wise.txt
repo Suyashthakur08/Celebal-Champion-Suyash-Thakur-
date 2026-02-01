@@ -1,0 +1,38 @@
+--Using window function
+WITH RankedSalaries AS (
+    SELECT
+        DepartmentID,
+        Salary,
+        DENSE_RANK() OVER (
+            PARTITION BY DepartmentID
+            ORDER BY Salary DESC
+        ) AS SalaryRank
+    FROM
+        Employees
+)
+SELECT
+    DepartmentID,
+    Salary
+FROM
+    RankedSalaries
+WHERE
+    SalaryRank = 2;
+
+
+--Using subqueries
+SELECT
+    e1.DepartmentID,
+    MAX(e1.Salary) AS SecondMaxSalary
+FROM
+    Employees e1
+WHERE
+    e1.Salary < (
+        SELECT
+            MAX(e2.Salary)
+        FROM
+            Employees e2
+        WHERE
+            e2.DepartmentID = e1.DepartmentID
+    )
+GROUP BY
+    e1.DepartmentID;
